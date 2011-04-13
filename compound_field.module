@@ -58,8 +58,9 @@ function compound_field_field_info() {
 function compound_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
   $optional_field_found = FALSE;
   foreach ($items as $delta => $value) {
+	//print_r($items);
     //_link_validate($items[$delta], $delta, $field, $entity, $instance, $optional_field_found);
-	form_set_value($element, array('title' => $items['title'],'value' => $items['content']), $form_state);
+	//form_set_value($element, array('title' => $items['title'],'value' => $items['content']), $form_state);
   }
 }
 
