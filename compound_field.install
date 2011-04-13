@@ -1,0 +1,27 @@
+<?php
+// $Id: link.install,v 1.6.2.3 2010/12/10 01:24:48 jcfiala Exp $
+
+/**
+ * @file
+ * Install file for the link module.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function compound_field_field_schema($field) {
+  return array(
+    'columns' => array(
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'value' => array(
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+      ),
+    ),
+  );
+}
