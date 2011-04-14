@@ -56,11 +56,10 @@ function compound_field_field_info() {
  * Implements hook_field_validate().
  */
 function compound_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
-  $optional_field_found = FALSE;
-  foreach ($items as $delta => $value) {
-	//print_r($items);
-    //_link_validate($items[$delta], $delta, $field, $entity, $instance, $optional_field_found);
-	//form_set_value($element, array('title' => $items['title'],'value' => $items['content']), $form_state);
+  foreach ($items as $delta => $item) {
+    if (!empty($item['text']) && !empty($item['content'])) {
+      
+    }
   }
 }
 
@@ -68,7 +67,10 @@ function compound_field_field_validate($entity_type, $entity, $field, $instance,
 * Implements hook_is_empty(). 
 */
 function compound_field_field_is_empty($item, $field) {
-  return empty($item['title']) && empty($item['text']);
+    $test = empty($item['text']);
+    $sec = empty($item['content']);
+
+    return empty($item['content']) && empty($item['text']);
 }
 
 /***********************************************************************
@@ -99,11 +101,11 @@ function compound_field_field_formatter_view($entity_type, $entity, $field, $ins
   foreach ($items as $delta => $item) {
 	$rows[] = array($delta, $item['value']);
   }
-      $element[0] = array(
-        '#theme' => 'table', 
-        '#header' => array(t('Delta'), t('Value')), 
-        '#rows' => $rows,
-      );
+  $element[0] = array(
+    '#theme' => 'table', 
+    '#header' => array(t('Delta'), t('Value')), 
+    '#rows' => $rows,
+  );
   return $elements;
 }
 
@@ -130,7 +132,6 @@ function compound_field_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function compound_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-	  $value = isset($items[$delta]['rgb']) ? $items[$delta]['rgb'] : '';
 	  $element += array(
 	    '#delta' => $delta,
 	  );
@@ -154,7 +155,7 @@ function compound_field_field_widget_form(&$form, &$form_state, $field, $instanc
 	        );
 			$element['content'] = array(
 	          '#type' => 'textarea',
-	          '#title' => t('Body'),
+	          '#title' => t('Test'),
 	          '#rows' => 5,
 	        );
 	      break;
