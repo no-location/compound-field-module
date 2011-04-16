@@ -4,35 +4,6 @@
  * @file
  * A field using the Field API.
  * */
-/**
- * @file
- * An example field using the Field API.
- *
- * This is updated from Barry Jaspan's presentation at Drupalcon Paris,
- * @link http://acquia.com/community/resources/acquia-tv/intro-field-api-module-developers Video Presentation @endlink
- *
- * Providing a field requires:
- * - Defining a field
- *   - hook_field_info()
- *   - hook_field_schema()
- *   - hook_field_validate()
- *   - hook_field_is_empty()
- *
- * - Defining a formatter for the field (the portion that outputs the field for
- *   display)
- *   - hook_field_formatter_info()
- *   - hook_field_formatter_view()
- *
- * - Defining a widget for the edit form
- *   - hook_field_widget_info()
- *   - hook_field_widget_form()
- *
- * *
- * See @link field_types Field Types API @endlink
- */
-/* * *************************************************************
- * Field Type API hooks
- * ************************************************************* */
 
 /**
  * Implements hook_field_info().
