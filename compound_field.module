@@ -134,11 +134,13 @@ function compound_field_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function compound_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $value['title'] = isset($items[$delta]['title']) ? $items[$delta]['title'] : '';
+  $value['content'] = isset($items[$delta]['content']) ? $items[$delta]['content'] : '';
+
   $element += array(
     '#delta' => $delta,
   );
   $element['compound_field'] = array();
-
   switch ($instance['widget']['type']) {
 
     case 'compound_field_text':
@@ -153,11 +155,13 @@ function compound_field_field_widget_form(&$form, &$form_state, $field, $instanc
         '#type' => 'textfield',
         '#title' => t('Title'),
         '#size' => 255,
+        '#default_value' => $value['title'],
       );
       $element['content'] = array(
         '#type' => 'textarea',
         '#title' => t('Content'),
         '#rows' => 5,
+        '#default_value' => $value['content'],
       );
       break;
   }
