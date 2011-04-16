@@ -1,8 +1,9 @@
 <?php
-/** 
-* @file 
-* A field using the Field API. 
-* */
+
+/**
+ * @file
+ * A field using the Field API.
+ * */
 /**
  * @file
  * An example field using the Field API.
@@ -29,23 +30,21 @@
  * *
  * See @link field_types Field Types API @endlink
  */
-
-/***************************************************************
+/* * *************************************************************
  * Field Type API hooks
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  * Implements hook_field_info().
  *
  * Provides the description of the field.
  */
-
 function compound_field_field_info() {
   return array(
     'compound_field' => array(
-      'label' => t('Compound Field'), 
-      'description' => t('This field a title and a body in the database.'), 
-      'settings' => array('max_length' => ''), 
+      'label' => t('Compound Field'),
+      'description' => t('This field a title and a body in the database.'),
+      'settings' => array('max_length' => ''),
       'default_widget' => 'compound_text',
       'default_formatter' => 'compound_field_formatter',
     ),
@@ -58,27 +57,27 @@ function compound_field_field_info() {
 function compound_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
   foreach ($items as $delta => $item) {
     if (!empty($item['text']) && !empty($item['content'])) {
-      
+
     }
   }
 }
 
-/** 
-* Implements hook_is_empty(). 
-*/
+/**
+ * Implements hook_is_empty().
+ */
 function compound_field_field_is_empty($item, $field) {
-    $test = empty($item['text']);
-    $sec = empty($item['content']);
+  $test = empty($item['text']);
+  $sec = empty($item['content']);
 
-    return empty($item['content']) && empty($item['text']);
+  return empty($item['content']) && empty($item['text']);
 }
 
-/***********************************************************************
+/* * *********************************************************************
  *  Field Type API: Formatter
  *
  *  These are the api hooks that present formatted (themed) output to the
  *  user.
- **********************************************************************/
+ * ******************************************************************** */
 
 /**
  * Implements hook_field_formatter_info().
@@ -99,22 +98,22 @@ function compound_field_field_formatter_info() {
 function compound_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $elements = array();
   foreach ($items as $delta => $item) {
-	$rows[] = array($delta, $item['value']);
+    $rows[] = array($delta, $item['value']);
   }
   $element[0] = array(
-    '#theme' => 'table', 
-    '#header' => array(t('Delta'), t('Value')), 
+    '#theme' => 'table',
+    '#header' => array(t('Delta'), t('Value')),
     '#rows' => $rows,
   );
   return $elements;
 }
 
-/**************************************************************************
+/* * ************************************************************************
  * Field Type API: Widget
  *
  * The widget is the form element used to receive input from the user
  * when the field is being populated.
- **************************************************************************/
+ * ************************************************************************ */
 
 /**
  * Implements hook_field_widget_info().
@@ -132,41 +131,40 @@ function compound_field_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function compound_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-	  $element += array(
-	    '#delta' => $delta,
-	  );
-	  $element['compound_field'] = array();
+  $element += array(
+    '#delta' => $delta,
+  );
+  $element['compound_field'] = array();
 
-	  switch ($instance['widget']['type']) {
+  switch ($instance['widget']['type']) {
 
-	    case 'compound_field':
+    case 'compound_field':
 
-	      // A fieldset to hold the three text fields.
-	      $element += array(
-	        '#type' => 'fieldset',
-	        '#delta' => $delta,
-	      );
+      // A fieldset to hold the three text fields.
+      $element += array(
+        '#type' => 'fieldset',
+        '#delta' => $delta,
+      );
 
-	      // Create a textfield for saturation values for Red, Green, and Blue.
-	        $element['text'] = array(
-	          '#type' => 'textfield',
-	          '#title' => t('Title'),
-	          '#size' => 255,
-	        );
-			$element['content'] = array(
-	          '#type' => 'textarea',
-	          '#title' => t('Test'),
-	          '#rows' => 5,
-	        );
-	      break;
-	}
-	return $element;
+      // Create a textfield for saturation values for Red, Green, and Blue.
+      $element['text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title'),
+        '#size' => 255,
+      );
+      $element['content'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Test'),
+        '#rows' => 5,
+      );
+      break;
+  }
+  return $element;
 }
-
 
 /**
  * Theme function for 'default' text field formatter.
  */
 function theme_compound_field_formatter_default($vars) {
-  
+
 }
