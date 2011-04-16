@@ -84,8 +84,8 @@ function compound_field_field_is_empty($item, $field) {
  */
 function compound_field_field_formatter_info() {
   return array(
-    'compound_field_formatter' => array(
-      'label' => t('Compound Field'),
+    'compound_field_formatter_text' => array(
+      'label' => t('Compound Field text'),
       'field types' => array('compound_field'),
       'multiple values' => FIELD_BEHAVIOR_DEFAULT,
     ),
@@ -97,14 +97,17 @@ function compound_field_field_formatter_info() {
  */
 function compound_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $elements = array();
-  foreach ($items as $delta => $item) {
-    $rows[] = array($delta, $item['value']);
+  switch ($display['type']) {
+    case 'compound_field_formatter_text':
+      //this formater output the field as text
+      foreach ($items as $delta => $item) {
+        $elements[$delta]['#markup'] = '<div class="compound-title">' . $item['title'] . '</div>';
+        $elements[$delta]['#markup'] .= '<div class="compound-title">' . $item['content'] . '</div>';
+      }
+
+      break;
   }
-  $element[0] = array(
-    '#theme' => 'table',
-    '#header' => array(t('Delta'), t('Value')),
-    '#rows' => $rows,
-  );
+
   return $elements;
 }
 
@@ -120,7 +123,7 @@ function compound_field_field_formatter_view($entity_type, $entity, $field, $ins
  */
 function compound_field_field_widget_info() {
   return array(
-    'compound_field' => array(
+    'compound_field_text' => array(
       'label' => 'Compound Textarea',
       'field types' => array('compound_field'),
     ),
@@ -138,33 +141,25 @@ function compound_field_field_widget_form(&$form, &$form_state, $field, $instanc
 
   switch ($instance['widget']['type']) {
 
-    case 'compound_field':
+    case 'compound_field_text':
 
-      // A fieldset to hold the three text fields.
+      // A fieldset to hold the two texts fields.
       $element += array(
         '#type' => 'fieldset',
         '#delta' => $delta,
       );
 
-      // Create a textfield for saturation values for Red, Green, and Blue.
-      $element['text'] = array(
+      $element['title'] = array(
         '#type' => 'textfield',
         '#title' => t('Title'),
         '#size' => 255,
       );
       $element['content'] = array(
         '#type' => 'textarea',
-        '#title' => t('Test'),
+        '#title' => t('Content'),
         '#rows' => 5,
       );
       break;
   }
   return $element;
-}
-
-/**
- * Theme function for 'default' text field formatter.
- */
-function theme_compound_field_formatter_default($vars) {
-
 }

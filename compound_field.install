@@ -18,7 +18,7 @@ function compound_field_field_schema($field) {
         'length' => 255,
         'not null' => FALSE,
       ),
-      'value' => array(
+      'content' => array(
         'type' => 'text',
         'size' => 'big',
         'not null' => FALSE,
