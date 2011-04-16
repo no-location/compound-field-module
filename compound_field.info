@@ -1,6 +1,9 @@
 name = Compound Field
 description = "Creates a custom field that contains a title and a body." 
 package = Fields
-core = 7.x 
+core = 7.x
+dependencies[] = field
 files[] = compound_field.module
 files[] = compound_field.install
+
+version = "7.x-1.0-beta1"
