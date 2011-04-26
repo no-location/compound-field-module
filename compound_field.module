@@ -136,7 +136,7 @@ function compound_field_field_widget_info() {
 function compound_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
   $value['title'] = isset($items[$delta]['title']) ? $items[$delta]['title'] : '';
   $value['content'] = isset($items[$delta]['content']) ? $items[$delta]['content'] : '';
-
+  
   $element += array(
     '#delta' => $delta,
   );
@@ -158,11 +158,12 @@ function compound_field_field_widget_form(&$form, &$form_state, $field, $instanc
         '#default_value' => $value['title'],
       );
       $element['content'] = array(
-        '#type' => 'textarea',
+        '#type' => 'text_format',
         '#title' => t('Content'),
         '#rows' => 5,
         '#default_value' => $value['content'],
-      );
+       );
+      $element['content']['#format'] = isset($items[$delta]['content']['format']) ? $items[$delta]['content']['format'] : NULL;
       break;
   }
   return $element;
