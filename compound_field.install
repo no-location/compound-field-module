@@ -1,10 +1,8 @@
 <?php
 
-// $Id: link.install,v 1.6.2.3 2010/12/10 01:24:48 jcfiala Exp $
-
 /**
  * @file
- * Install file for the link module.
+ * Install file for the compound_field module.
  */
 
 /**
